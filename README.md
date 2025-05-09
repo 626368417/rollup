@@ -313,3 +313,27 @@ body {
   background-color: green;
 }
 ```
+
+### **1.6 本地服务器 **
+
+**安装依赖**
+
+```js
+pnpm install  rollup-plugin-serve  --save-dev
+```
+
+**rollup.config.js**
+
+```js
+import serve from "rollup-plugin-serve";
+export default {
+  //插件
+  plugins: [
+    serve({
+      // open: true, // 自动打开浏览器
+      port: 8080, // 监听端口
+      contentBase: "./dist", // 静态文件目录
+    }),
+  ],
+};
+```

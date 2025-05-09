@@ -2,6 +2,7 @@ import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import postcss from "rollup-plugin-postcss";
+import serve from "rollup-plugin-serve";
 export default {
   //文件入口点
   input: "src/main.ts",
@@ -22,6 +23,12 @@ export default {
     postcss({
       extract: true, // 将 CSS 提取到独立文件
       minimize: true, // 压缩 CSS
+    }),
+
+    serve({
+      // open: true, // 自动打开浏览器
+      port: 8080, // 监听端口
+      contentBase: "./dist", // 静态文件目录
     }),
   ],
 };
