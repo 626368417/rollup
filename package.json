@@ -12,5 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "rollup": "^4.40.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@rollup/plugin-babel": "^6.0.4"
   }
 }
