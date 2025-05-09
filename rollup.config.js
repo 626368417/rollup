@@ -4,7 +4,8 @@ import { terser } from "rollup-plugin-terser";
 import postcss from "rollup-plugin-postcss";
 import serve from "rollup-plugin-serve";
 import replace from "@rollup/plugin-replace"; //替换
-
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 const isDevelopment = process.env.NODE_ENV === "development"; // 判断是否为开发环境
 export default {
   //文件入口点
@@ -41,5 +42,8 @@ export default {
         port: 8080, // 监听端口
         contentBase: "./dist", // 静态文件目录
       }),
+
+    resolve(),
+    commonjs(),
   ],
 };

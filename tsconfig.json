@@ -5,6 +5,7 @@
     "module": "ESNext", // 模块化方案
     "strict": true, // 启用所有严格类型检查选项
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true // 启用合成默认导入
   }
 }

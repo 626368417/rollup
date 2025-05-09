@@ -386,3 +386,54 @@ export default {
     "dev": " cross-env NODE_ENV=development rollup --config -w"
   },
 ```
+
+### **1.8 使用第三方模块 **
+
+rollup.js 编译源码中的模块引用默认只支持 ES6+的模块方式 import/export
+**安装依赖**
+
+- plugin-node-resolve: 是一个 Rollup 插件，用于在构建过程中解析和加载 Node.js 模块
+- plugin-commonjs: 是一个 Rollup 插件，用于在构建过程中将 CommonJS 模块转换为 ES6 模块
+- lodash: 是一个 JavaScript 实用工具库，提供了许多有用的函数，如数组操作、对象操作、函数操作等
+- @types/lodash: 是 lodash 的 TypeScript 类型定义文件，用于在 TypeScript 中使用 lodash
+
+```js
+pnpm install @rollup/plugin-node-resolve @rollup/plugin-commonjs @types/lodash lodash   --save-dev
+```
+
+**rollup.config.js**
+
+```js
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+
+export default {
+  //插件
+  plugins: [resolve(), commonjs()],
+};
+```
+
+**rollup.config.js**
+
+```js
+import _ from "lodash";
+import "./main.css";
+console.log(_);
+const name1: string = "张三";
+const age: number = 18;
+
+console.log(name1, age);
+```
+
+**报错**
+import \_ from 'lodash'; 模块 ""D:/xue/rollup/node_modules/.pnpm/@types+lodash@4.17.16/node_modules/@types/lodash/index"" 只能在使用 "allowSyntheticDefaultImports" 标志时进行默认导入 ts(1259)
+
+tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true // // 启用合成默认导入
+  }
+}
+```
