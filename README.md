@@ -6,7 +6,7 @@ Rollup 是一个用于 JavaScript 的模块打包工具，它将小的代码片�
 
 vite 是基于 rollup 的，所以学习 rollup 是很有必要的
 
-### ** 基本使用**
+### **1.1 基本使用**
 
 **安装**
 
@@ -57,7 +57,7 @@ Original error: Unexpected token 'export'
 **打包结果**
 ![Alt text](1746777117571.png)
 
-### 支持 Babel
+### **1.2 支持 Babel**
 
 使用 Babel 可以将 ES6+ 代码转换为向后兼容的 JavaScript 版本，以便在旧版浏览器中运行。
 
@@ -124,4 +124,41 @@ var sum = function sum(a, b) {
 };
 var result = sum(12, 24);
 console.log(result);
+```
+
+### **1.3 tree-shaking**
+
+- rollup 的一个核心特性是 tree-shaking，它可以在打包过程中删除未使用的代码，从而减小最终包的大小。
+
+- rollup 只处理函数和顶层的 import/export 变量
+
+**src\main.js**
+
+```js
+import { name, age } from "./module.js";
+console.log(name);
+```
+
+**src\module.js**
+
+```js
+export const name = "张三";
+export const age = 18;
+```
+
+**打包结果**
+
+```js
+"use strict";
+
+var name = "张三";
+console.log(name);
+```
+
+age 变量引入了，但是没有使用，所以打包结果中没有 age 变量
+
+### **1.4 使用 typescript**
+
+```js
+pnpm install tslib typescript @rollup/plugin-typescript --save-dev
 ```

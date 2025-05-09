@@ -1,5 +1,2 @@
-let sum = (a, b) => {
-  return a + b;
-};
-let result = sum(12, 24);
-console.log(result);
+import { name, age } from "./module.js";
+console.log(name);
