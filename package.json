@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "acorn": "^8.14.1",
+    "magic-string": "^0.30.17",
     "rollup": "^4.40.2",
     "tslib": "^2.8.1"
   },

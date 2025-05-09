@@ -1,8 +1,4 @@
-
-import _ from 'lodash';
-import './main.css';
-console.log(_);
- const name1 :string = "张三";
- const age :number= 18;
-
- console.log(name1,age);
+import finalResult from "./magicString";
+import ast from "./walk"
+console.log(finalResult,'magicString');
+console.log(ast,'walk');
