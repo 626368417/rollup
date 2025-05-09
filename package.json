@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "rollup --config",
-    "dev": "rollup --config  -w"
+    "build": " cross-env NODE_ENV=production rollup --config",
+    "dev": " cross-env NODE_ENV=development rollup --config -w"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,9 @@
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-replace": "^6.0.2",
     "@rollup/plugin-typescript": "^12.1.2",
+    "cross-env": "^7.0.3",
     "postcss": "^8.5.3",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-serve": "^3.0.0",

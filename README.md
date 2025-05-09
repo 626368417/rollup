@@ -337,3 +337,52 @@ export default {
   ],
 };
 ```
+
+### **1.7 区分环境 **
+
+- 开发环境：用于开发阶段，需要热更新、调试等功能
+- 生产环境：用于部署阶段，需要压缩、混淆、优化等操作
+  serve 插件只有在开发环境才需要
+
+  **安装依赖**
+
+- cross-env: 是一个跨平台设置环境变量的工具，可以在 Windows、Linux 和 macOS 上设置环境变量
+- @rollup/plugin-replace: 是一个 Rollup 插件，用于在构建过程中替换代码中的变量
+
+```js
+pnpm install cross-env  @rollup/plugin-replace  --save-dev
+```
+
+**rollup.config.js**
+
+```js
+import replace from "@rollup/plugin-replace"; //替换
+const isDevelopment = process.env.NODE_ENV === "development"; // 判断是否为开发环境
+export default {
+  //插件
+  plugins: [
+    replace({
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "development"
+      ), // 替换环境变量
+      preventAssignment: true, // 解决警告
+    }),
+    // 仅在开发环境启用 serve 插件
+    isDevelopment &&
+      serve({
+        // open: true, // 自动打开浏览器
+        port: 8080, // 监听端口
+        contentBase: "./dist", // 静态文件目录
+      }),
+  ],
+};
+```
+
+**rollup.config.js**
+
+```json
+  "scripts": {
+    "build": " cross-env NODE_ENV=production rollup --config",
+    "dev": " cross-env NODE_ENV=development rollup --config -w"
+  },
+```
