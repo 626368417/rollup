@@ -1,3 +1,4 @@
+import './main.css';
  const name1 :string = "张三";
  const age :number= 18;
 

@@ -1,5 +1,7 @@
 import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
+import { terser } from "rollup-plugin-terser";
+import postcss from "rollup-plugin-postcss";
 export default {
   //文件入口点
   input: "src/main.ts",
@@ -16,5 +18,10 @@ export default {
       exclude: "node_modules/**",
     }),
     typescript(),
+    terser(),
+    postcss({
+      extract: true, // 将 CSS 提取到独立文件
+      minimize: true, // 压缩 CSS
+    }),
   ],
 };

@@ -187,6 +187,7 @@ console.log(name1, age);
 ```
 
 **tsconfig.json**
+tsconfig.json 文件是 TypeScript 的配置文件
 
 ```json
 {
@@ -219,4 +220,96 @@ export default {
 var name1 = "张三";
 var age = 18;
 console.log(name1, age);
+```
+
+### **1.4 压缩 JS **
+
+terser 是支持 ES6 +的 JavaScript 压缩器工具包
+
+- 压缩代码： rollup-plugin-terser 会移除 JavaScript 代码中的空格、换行、注释等不必要的字符，缩短代码并减少文件大小
+- 混淆变量和函数名：通过混淆代码中的变量和函数名，使其变得难以理解，进一步减少代码的体积并增加一定的保护性（虽然这种混淆对防止代码被反向工程并不完全有效 -删除无用代码：通过使用像 dead code elimination（死代码消除）等技术，它能够删除一些冗余和未使用的代码，进一步减小代码体积
+
+  **安装依赖**
+
+```js
+pnpm install rollup-plugin-terser --save-dev
+```
+
+**rollup.config.js**
+
+```js
+import typescript from "@rollup/plugin-typescript";
+import { terser } from "rollup-plugin-terser";
+export default {
+  //插件
+  plugins: [typescript(), terser()],
+};
+```
+
+**打包结果**
+
+```js
+"use strict";
+console.log("张三", 18);
+```
+
+### **1.5 编译 css **
+
+- PostCSS:是一个用 JavaScript 编写的工具，用来处理 CSS 文件。它通过插件的方式扩展了 CSS 的功能，可以用来进行自动添加浏览器前缀、压缩 CSS、支持未来的 CSS 特性等
+
+- rollup-plugin-postcss 是一个 Rollup 插件，用于在 Rollup 构建过程中集成 PostCSS
+  **安装依赖**
+
+```js
+pnpm install   postcss rollup-plugin-postcss --save-dev
+```
+
+**src\main.ts**
+引入 main.css
+
+```js
+import "./main.css";
+const name1: string = "张三";
+const age: number = 18;
+
+console.log(name1, age);
+```
+
+**src\main.css**
+
+```css
+body {
+  background-color: green;
+}
+```
+
+**rollup.config.js**
+
+```js
+import postcss from "rollup-plugin-postcss";
+export default {
+  //插件
+  plugins: [
+    postcss({
+      extract: true, // 将 CSS 提取到独立文件
+      minimize: true, // 压缩 CSS
+    }),
+  ],
+};
+```
+
+**打包结果**
+bundle.cjs.js
+
+```js
+"use strict";
+console.log("张三", 18);
+```
+
+bundle.cjs.css
+
+```css
+body {
+  background-color: green;
+}
 ```
