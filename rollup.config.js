@@ -1,7 +1,8 @@
 import babel from "@rollup/plugin-babel";
+import typescript from "@rollup/plugin-typescript";
 export default {
   //文件入口点
-  input: "src/main.js",
+  input: "src/main.ts",
   //输出配置
   output: {
     file: "dist/bundle.cjs.js", //输出文件的路径和名称
@@ -14,5 +15,6 @@ export default {
       //排除node_modules下的文件
       exclude: "node_modules/**",
     }),
+    typescript(),
   ],
 };

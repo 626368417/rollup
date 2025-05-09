@@ -55,7 +55,12 @@ Original error: Unexpected token 'export'
 ```
 
 **打包结果**
-![Alt text](1746777117571.png)
+
+```js
+"use strict";
+
+console.log("hello");
+```
 
 ### **1.2 支持 Babel**
 
@@ -159,6 +164,59 @@ age 变量引入了，但是没有使用，所以打包结果中没有 age 变�
 
 ### **1.4 使用 typescript**
 
+如果不安装 tslib，会报错
+[!] (plugin typescript) RollupError: [plugin typescript] @rollup/plugin-typescript: Could not find module 'tslib', which is required by this plugin. Is it installed?
+
+**安装依赖**
+
+- tslib:是 TypeScript 的一个运行时库，包含了 TypeScript 编译后的辅助函数
+- @rollup/plugin-typescript: 是一个 Rollup 插件，用于将 TypeScript 编译为 JavaScript
+- typescript: 是 TypeScript 的核心编译器，负责将 TypeScript 代码转换为 JavaScript 代码
+
 ```js
 pnpm install tslib typescript @rollup/plugin-typescript --save-dev
+```
+
+**src\main.ts**
+
+```ts
+const name1: string = "张三";
+const age: number = 18;
+
+console.log(name1, age);
+```
+
+**tsconfig.json**
+
+```json
+{
+  // compilerOptions: 编译选项
+  "compilerOptions": {
+    "target": "es5", // 编译后的版本
+    "module": "ESNext", // 模块化方案
+    "strict": true, // 启用所有严格类型检查选项
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+**rollup.config.js**
+
+```js
+import typescript from "@rollup/plugin-typescript";
+export default {
+  //插件
+  plugins: [typescript()],
+};
+```
+
+**打包结果**
+
+```js
+"use strict";
+
+var name1 = "张三";
+var age = 18;
+console.log(name1, age);
 ```
